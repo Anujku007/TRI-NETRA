@@ -1,0 +1,212 @@
+{
+  "schema_version": 2,
+  "detector": "Human.js through the unchanged TRI-Netra backend face detector",
+  "dataset": "WIDER FACE validation",
+  "iou_threshold": 0.5,
+  "images_evaluated": 3226,
+  "ground_truth_faces": 39708,
+  "predicted_faces": 6555,
+  "TP": 6051,
+  "FP": 504,
+  "FN": 33657,
+  "precision": 0.923112128146453,
+  "recall": 0.15238742822605017,
+  "f1_score": 0.2615913364892031,
+  "average_precision": 0.14619228175692559,
+  "confidence_interval_95": {
+    "precision": {
+      "lower": 0.9154035834769121,
+      "upper": 0.9306216608266433
+    },
+    "recall": {
+      "lower": 0.1360561997298917,
+      "upper": 0.17159217850665315
+    },
+    "f1": {
+      "lower": 0.23707447597110964,
+      "upper": 0.28936731948609495
+    },
+    "average_precision": {
+      "lower": 0.1301676695104894,
+      "upper": 0.16461293810883484
+    },
+    "mean_inference_latency_ms": {
+      "lower": 121.0682102562839,
+      "upper": 126.65057058186504
+    }
+  },
+  "inference_latency_ms": {
+    "mean": 123.86885363918081,
+    "median": 98.65764549997402,
+    "p95": 273.8348745000112
+  },
+  "difficulty_results": {
+    "All": {
+      "ground_truth_faces": 39708,
+      "true_positives": 6051,
+      "false_positives": 504,
+      "false_negatives": 33657,
+      "ignored_predictions": 0,
+      "precision": 0.923112128146453,
+      "recall": 0.15238742822605017,
+      "f1": 0.2615913364892031,
+      "average_precision": 0.14619228175692559,
+      "confidence_interval_95": {
+        "precision": {
+          "lower": 0.9154035834769121,
+          "upper": 0.9306216608266433
+        },
+        "recall": {
+          "lower": 0.1360561997298917,
+          "upper": 0.17159217850665315
+        },
+        "f1": {
+          "lower": 0.23707447597110964,
+          "upper": 0.28936731948609495
+        },
+        "average_precision": {
+          "lower": 0.1301676695104894,
+          "upper": 0.16461293810883484
+        },
+        "mean_inference_latency_ms": {
+          "lower": 121.0682102562839,
+          "upper": 126.65057058186504
+        }
+      },
+      "inference_latency_ms": {
+        "mean": 123.86885363918081,
+        "median": 98.65764549997402,
+        "p95": 273.8348745000112
+      },
+      "precision_recall_curve_points": 1000
+    },
+    "Easy": {
+      "ground_truth_faces": 7211,
+      "true_positives": 4305,
+      "false_positives": 474,
+      "false_negatives": 2906,
+      "ignored_predictions": 1776,
+      "precision": 0.9008160703075957,
+      "recall": 0.5970045763417002,
+      "f1": 0.7180984153461217,
+      "average_precision": 0.5680522912314887,
+      "confidence_interval_95": {
+        "precision": {
+          "lower": 0.8895940391696708,
+          "upper": 0.9117928359849756
+        },
+        "recall": {
+          "lower": 0.5765304152024067,
+          "upper": 0.6178492107616342
+        },
+        "f1": {
+          "lower": 0.7026295397510697,
+          "upper": 0.7344663247852871
+        },
+        "average_precision": {
+          "lower": 0.5482018341299884,
+          "upper": 0.5895706572309974
+        },
+        "mean_inference_latency_ms": {
+          "lower": 121.0682102562839,
+          "upper": 126.65057058186504
+        }
+      },
+      "inference_latency_ms": {
+        "mean": 123.86885363918081,
+        "median": 98.65764549997402,
+        "p95": 273.8348745000112
+      },
+      "precision_recall_curve_points": 1000
+    },
+    "Medium": {
+      "ground_truth_faces": 13319,
+      "true_positives": 5864,
+      "false_positives": 502,
+      "false_negatives": 7455,
+      "ignored_predictions": 189,
+      "precision": 0.921143575243481,
+      "recall": 0.44027329379082514,
+      "f1": 0.5957835915671832,
+      "average_precision": 0.42219062693291864,
+      "confidence_interval_95": {
+        "precision": {
+          "lower": 0.9130626277437128,
+          "upper": 0.9291073565042655
+        },
+        "recall": {
+          "lower": 0.4182046569804426,
+          "upper": 0.4606595081811378
+        },
+        "f1": {
+          "lower": 0.5757212475597153,
+          "upper": 0.6147429335393797
+        },
+        "average_precision": {
+          "lower": 0.40121900058102977,
+          "upper": 0.44226817081160064
+        },
+        "mean_inference_latency_ms": {
+          "lower": 121.0682102562839,
+          "upper": 126.65057058186504
+        }
+      },
+      "inference_latency_ms": {
+        "mean": 123.86885363918081,
+        "median": 98.65764549997402,
+        "p95": 273.8348745000112
+      },
+      "precision_recall_curve_points": 1000
+    },
+    "Hard": {
+      "ground_truth_faces": 31958,
+      "true_positives": 6051,
+      "false_positives": 504,
+      "false_negatives": 25907,
+      "ignored_predictions": 0,
+      "precision": 0.923112128146453,
+      "recall": 0.18934226171850554,
+      "f1": 0.31423155817516163,
+      "average_precision": 0.18164475636785785,
+      "confidence_interval_95": {
+        "precision": {
+          "lower": 0.9154035834769121,
+          "upper": 0.9306216608266433
+        },
+        "recall": {
+          "lower": 0.17228717015930214,
+          "upper": 0.20829703358764637
+        },
+        "f1": {
+          "lower": 0.29026977927328396,
+          "upper": 0.34001429503248254
+        },
+        "average_precision": {
+          "lower": 0.16495996396024942,
+          "upper": 0.19993254463712892
+        },
+        "mean_inference_latency_ms": {
+          "lower": 121.0682102562839,
+          "upper": 126.65057058186504
+        }
+      },
+      "inference_latency_ms": {
+        "mean": 123.86885363918081,
+        "median": 98.65764549997402,
+        "p95": 273.8348745000112
+      },
+      "precision_recall_curve_points": 1000
+    }
+  },
+  "reproducibility": {
+    "experiment_config_sha256": "a0a293320ac677691187bfddd5db08a01b512c2c11d58c2bc265eff68c6ba640",
+    "python_version": "3.14.7",
+    "numpy_version": "2.5.4",
+    "opencv_version": "4.11.0",
+    "scipy_version": "1.18.1",
+    "prediction_file_sha256": {
+      "humanjs": "cd7c520f33578b34961fed8a19391c2ebd9ae41545fa7367ebb6a7bcdf153b07",
+      "haar": "75dc0b5368bc69da368f596c617b3196e1f2f79c91007ef12a04fd11a371607a"
+    }
+  }
+}

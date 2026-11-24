@@ -1,0 +1,12 @@
+{
+  "name": "Trinetra",
+  "description": "Trinetra intelligent surveillance & vision defense system. Real-time facial biometric identification, authorized personnel verification, and automated perimeter threat alerting.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
+

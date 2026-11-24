@@ -1,0 +1,212 @@
+{
+  "schema_version": 2,
+  "detector": "OpenCV Haar Cascade (haarcascade_frontalface_default)",
+  "dataset": "WIDER FACE validation",
+  "iou_threshold": 0.5,
+  "images_evaluated": 3226,
+  "ground_truth_faces": 39708,
+  "predicted_faces": 8706,
+  "TP": 6012,
+  "FP": 2694,
+  "FN": 33696,
+  "precision": 0.6905582356995176,
+  "recall": 0.1514052583862194,
+  "f1_score": 0.2483579130003718,
+  "average_precision": 0.14114694195377375,
+  "confidence_interval_95": {
+    "precision": {
+      "lower": 0.6740041200128143,
+      "upper": 0.7061879564148741
+    },
+    "recall": {
+      "lower": 0.13419430131769625,
+      "upper": 0.16980812627689962
+    },
+    "f1": {
+      "lower": 0.22438374634836553,
+      "upper": 0.27286098587868285
+    },
+    "average_precision": {
+      "lower": 0.12470690525571641,
+      "upper": 0.15880416716125825
+    },
+    "mean_inference_latency_ms": {
+      "lower": 63.995922637275264,
+      "upper": 65.94230122173744
+    }
+  },
+  "inference_latency_ms": {
+    "mean": 64.97541466057037,
+    "median": 59.723687999999996,
+    "p95": 115.76435425
+  },
+  "difficulty_results": {
+    "All": {
+      "ground_truth_faces": 39708,
+      "true_positives": 6012,
+      "false_positives": 2694,
+      "false_negatives": 33696,
+      "ignored_predictions": 0,
+      "precision": 0.6905582356995176,
+      "recall": 0.1514052583862194,
+      "f1": 0.2483579130003718,
+      "average_precision": 0.14114694195377375,
+      "confidence_interval_95": {
+        "precision": {
+          "lower": 0.6740041200128143,
+          "upper": 0.7061879564148741
+        },
+        "recall": {
+          "lower": 0.13419430131769625,
+          "upper": 0.16980812627689962
+        },
+        "f1": {
+          "lower": 0.22438374634836553,
+          "upper": 0.27286098587868285
+        },
+        "average_precision": {
+          "lower": 0.12470690525571641,
+          "upper": 0.15880416716125825
+        },
+        "mean_inference_latency_ms": {
+          "lower": 63.995922637275264,
+          "upper": 65.94230122173744
+        }
+      },
+      "inference_latency_ms": {
+        "mean": 64.97541466057037,
+        "median": 59.723687999999996,
+        "p95": 115.76435425
+      },
+      "precision_recall_curve_points": 1000
+    },
+    "Easy": {
+      "ground_truth_faces": 7211,
+      "true_positives": 3379,
+      "false_positives": 2694,
+      "false_negatives": 3832,
+      "ignored_predictions": 2633,
+      "precision": 0.5563971677918657,
+      "recall": 0.46858965469421715,
+      "f1": 0.5087323095453177,
+      "average_precision": 0.4251662405372202,
+      "confidence_interval_95": {
+        "precision": {
+          "lower": 0.5393061054801178,
+          "upper": 0.5732821111204552
+        },
+        "recall": {
+          "lower": 0.4490256748826291,
+          "upper": 0.4895514054604863
+        },
+        "f1": {
+          "lower": 0.49182280879903467,
+          "upper": 0.5253994579483378
+        },
+        "average_precision": {
+          "lower": 0.4041159902203392,
+          "upper": 0.44647407512916526
+        },
+        "mean_inference_latency_ms": {
+          "lower": 63.995922637275264,
+          "upper": 65.94230122173744
+        }
+      },
+      "inference_latency_ms": {
+        "mean": 64.97541466057037,
+        "median": 59.723687999999996,
+        "p95": 115.76435425
+      },
+      "precision_recall_curve_points": 1000
+    },
+    "Medium": {
+      "ground_truth_faces": 13319,
+      "true_positives": 5257,
+      "false_positives": 2694,
+      "false_negatives": 8062,
+      "ignored_predictions": 755,
+      "precision": 0.6611746950069174,
+      "recall": 0.39469930174938056,
+      "f1": 0.4943112364833098,
+      "average_precision": 0.3668279058264292,
+      "confidence_interval_95": {
+        "precision": {
+          "lower": 0.643489250027138,
+          "upper": 0.6769107260005651
+        },
+        "recall": {
+          "lower": 0.37486725182817676,
+          "upper": 0.4147236090769643
+        },
+        "f1": {
+          "lower": 0.4755192093359472,
+          "upper": 0.5115884693153168
+        },
+        "average_precision": {
+          "lower": 0.3463978412263413,
+          "upper": 0.38608837178254096
+        },
+        "mean_inference_latency_ms": {
+          "lower": 63.995922637275264,
+          "upper": 65.94230122173744
+        }
+      },
+      "inference_latency_ms": {
+        "mean": 64.97541466057037,
+        "median": 59.723687999999996,
+        "p95": 115.76435425
+      },
+      "precision_recall_curve_points": 1000
+    },
+    "Hard": {
+      "ground_truth_faces": 31958,
+      "true_positives": 6012,
+      "false_positives": 2694,
+      "false_negatives": 25946,
+      "ignored_predictions": 0,
+      "precision": 0.6905582356995176,
+      "recall": 0.18812191000688402,
+      "f1": 0.29569152075545935,
+      "average_precision": 0.17537589245573715,
+      "confidence_interval_95": {
+        "precision": {
+          "lower": 0.6740041200128143,
+          "upper": 0.7061879564148741
+        },
+        "recall": {
+          "lower": 0.1710460678980213,
+          "upper": 0.20612496197912375
+        },
+        "f1": {
+          "lower": 0.273549864669071,
+          "upper": 0.31799929416794126
+        },
+        "average_precision": {
+          "lower": 0.158986528593597,
+          "upper": 0.1926923236466961
+        },
+        "mean_inference_latency_ms": {
+          "lower": 63.995922637275264,
+          "upper": 65.94230122173744
+        }
+      },
+      "inference_latency_ms": {
+        "mean": 64.97541466057037,
+        "median": 59.723687999999996,
+        "p95": 115.76435425
+      },
+      "precision_recall_curve_points": 1000
+    }
+  },
+  "reproducibility": {
+    "experiment_config_sha256": "a0a293320ac677691187bfddd5db08a01b512c2c11d58c2bc265eff68c6ba640",
+    "python_version": "3.14.7",
+    "numpy_version": "2.5.4",
+    "opencv_version": "4.11.0",
+    "scipy_version": "1.18.1",
+    "prediction_file_sha256": {
+      "humanjs": "cd7c520f33578b34961fed8a19391c2ebd9ae41545fa7367ebb6a7bcdf153b07",
+      "haar": "75dc0b5368bc69da368f596c617b3196e1f2f79c91007ef12a04fd11a371607a"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "experiment": "TRI-Netra Research Phase 2",
+  "identityCalibration": {
+    "datasetDirectory": "research-data/lfw",
+    "seed": 20261104,
+    "calibrationFraction": 0.6,
+    "maximumIdentities": 100,
+    "minimumRawImagesPerIdentity": 10,
+    "maximumImagesPerIdentity": 10,
+    "identityBootstrapReplicates": 1000,
+    "additionalThresholds": [],
+    "outputFiles": [
+      "research-data/results/identity_calibration.json",
+      "backend/calibration-report.json"
+    ],
+    "selectionProtocol": "Filter identities by minimum raw image count, deterministically sample identities and images from the configured seed, then assign whole identities to calibration or evaluation. No identity may appear in both splits.",
+    "duplicateAudit": {
+      "coarseDifferenceHashHammingThreshold": 4,
+      "coarseHashPolicy": "Flag review candidates only; never discard based on a coarse hash.",
+      "exactHash": "SHA-256 over original image bytes",
+      "exactDuplicatePolicy": "Remove repeated bytes only when every item has the same identity label; retain and report cross-identity byte collisions."
+    }
+  },
+  "widerFace": {
+    "dataset": "WIDER FACE",
+    "partition": "validation",
+    "expectedImageCount": 3226,
+    "imageRoot": "research-data/widerface/WIDER_val/images",
+    "annotationMat": "research-data/widerface/wider_face_split/wider_face_val.mat",
+    "difficultyAnnotations": {
+      "Easy": "research-data/widerface/wider_face_split/wider_easy_val.mat",
+      "Medium": "research-data/widerface/wider_face_split/wider_medium_val.mat",
+      "Hard": "research-data/widerface/wider_face_split/wider_hard_val.mat"
+    },
+    "predictionFiles": {
+      "humanjs": "research-data/results/widerface_humanjs_predictions.jsonl",
+      "haar": "research-data/results/widerface_haar_predictions.jsonl"
+    },
+    "metadataFiles": {
+      "humanjs": "research-data/results/widerface_humanjs_metadata.json",
+      "haar": "research-data/results/widerface_haar_metadata.json"
+    },
+    "iouThreshold": 0.5,
+    "scoreThresholdCount": 1000,
+    "bootstrapReplicates": 1000,
+    "bootstrapSeed": 20261105,
+    "confidenceInterval": "Percentile 95% cluster bootstrap resampling images with replacement; the same sampled images are used across detector comparisons.",
+    "operatingPoint": "All detections emitted by each detector's predeclared default settings; confidence threshold curves and AP use every emitted detection.",
+    "humanjs": {
+      "warmupImages": 10,
+      "scoreField": "confidence returned by the backend Human.js detector",
+      "runtimeSettingsReference": "backend/services/faceEmbeddingService.ts",
+      "maxDetectedPerImage": 20,
+      "minimumDetectorConfidence": 0.4
+    },
+    "haar": {
+      "warmupImages": 10,
+      "scaleFactor": 1.1,
+      "minNeighbors": 5,
+      "minSize": [20, 20],
+      "scoreField": "OpenCV detectMultiScale3 levelWeight"
+    },
+    "protocol": {
+      "matching": "WIDER official per-image score order and maximum-overlap one-to-one matching; unmatched detections are false positives; detections matched to non-kept difficulty boxes are ignored.",
+      "coordinates": "Official WIDER MATLAB x,y,w,h geometry and inclusive +1 overlap arithmetic.",
+      "scoreNormalization": "Min-max normalize each detector's emitted scores over the full validation prediction set, following the official evaluation toolkit.",
+      "averagePrecision": "All-point VOC precision-envelope integral over the official 1000-threshold PR curve.",
+      "latency": "Per-image inference latency in milliseconds, excluding file-system read and model initialization; includes image decode and detector call."
+    },
+    "outputs": {
+      "summary": "research-data/results/widerface_summary.json",
+      "prCurvesCsv": "research-data/results/widerface_pr_curves.csv",
+      "reportMarkdown": "research-data/RESEARCH_PHASE2_REPORT.md",
+      "legacyHumanjsReport": "research-data/widerface_humanjs_report.json",
+      "legacyHaarReport": "research-data/widerface_haar_report.json"
+    }
+  },
+  "sourceAnnotations": {
+    "officialDifficultySubsets": "https://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/support/eval_script/eval_tools.zip",
+    "officialResultsAndProtocol": "https://mmlab.ie.cuhk.edu.hk/projects/WIDERFace/WiderFace_Results.html"
+  },
+  "pythonRequirements": "research-data/requirements-evaluation.txt",
+  "notes": [
+    "Thresholds and identity score implementation are imported directly from shared/utils/faceIdentityMatcher.ts; calibration does not reimplement or retune the runtime score.",
+    "WIDER Human.js detection limits and confidence originate from the unchanged backend detector service.",
+    "Haar scores are detector-native ranking weights, not calibrated probabilities; AP is ranking-based and scores are not compared numerically across detector families."
+  ]
+}
