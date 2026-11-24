@@ -2,7 +2,23 @@ import nodeUtil from 'node:util';
 import { Buffer } from 'node:buffer';
 import { resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { Human, type FaceResult } from '@vladmandic/human';
+import type { Human, FaceResult } from '@vladmandic/human';
+import jpeg from 'jpeg-js';
+import { PNG } from 'pngjs';
+
+function decodeToRgb(buffer: Buffer): { data: Uint8Array; width: number; height: number } {
+  const isPng = buffer[0] === 0x89 && buffer[1] === 0x50;
+  const img: { data: Uint8Array | Buffer; width: number; height: number } = isPng
+    ? PNG.sync.read(buffer)
+    : jpeg.decode(buffer, { useTArray: true });
+  const rgb = new Uint8Array(img.width * img.height * 3);
+  for (let i = 0, j = 0; i < img.data.length; i += 4, j += 3) {
+    rgb[j] = img.data[i];
+    rgb[j + 1] = img.data[i + 1];
+    rgb[j + 2] = img.data[i + 2];
+  }
+  return { data: rgb, width: img.width, height: img.height };
+}
 
 export type FaceEmbeddingInput = string | Uint8Array;
 
@@ -87,8 +103,17 @@ let inferenceQueue: Promise<void> = Promise.resolve();
 function getHuman(): Promise<Human> {
   if (!humanPromise) {
     humanPromise = (async () => {
-      await import('@tensorflow/tfjs-node');
-      const human = new Human(INFERENCE_CONFIG);
+      await import('@tensorflow/tfjs');
+      await import('@tensorflow/tfjs-backend-wasm');
+      const humanModule: any = await import(
+        pathToFileURL(resolve('node_modules/@vladmandic/human/dist/human.node-wasm.js')).href
+      );
+      const HumanCtor: any = humanModule.Human ?? humanModule.default?.Human ?? humanModule.default;
+      const human = new HumanCtor({
+        ...INFERENCE_CONFIG,
+        backend: 'wasm',
+        wasmPath: `${resolve('node_modules/@tensorflow/tfjs-backend-wasm/dist')}${sep}`,
+      }) as Human;
       await human.tf.ready();
       await human.load();
       return human;
@@ -277,10 +302,10 @@ async function inferFaceEmbeddings(imageBuffer: Buffer): Promise<{
 }> {
   const inference = inferenceQueue.then(async () => {
     const human = await getHuman();
-    const inputTensor = human.tf.tidy(() => {
-      const decoded = human.tf.node.decodeImage(imageBuffer, 3);
-      return human.tf.cast(human.tf.expandDims(decoded, 0), 'float32');
-    });
+    const { data: rgbData, width: imgWidth, height: imgHeight } = decodeToRgb(imageBuffer);
+    const inputTensor = human.tf.tidy(() =>
+      human.tf.expandDims(human.tf.tensor3d(rgbData, [imgHeight, imgWidth, 3], 'float32'), 0)
+    );
 
     try {
       const result = await human.detect(inputTensor);

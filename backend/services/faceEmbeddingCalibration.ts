@@ -1,7 +1,8 @@
 import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';
 import { extname, join, relative, resolve } from 'node:path';
-import * as tf from '@tensorflow/tfjs-node';
+import * as tf from '@tensorflow/tfjs';
+import { setWasmPaths } from '@tensorflow/tfjs-backend-wasm';
 import {
   FACE_IDENTITY_AUTHORIZATION_MARGIN,
   FACE_IDENTITY_AUTHORIZATION_THRESHOLD,
@@ -10,6 +11,30 @@ import {
   faceEmbeddingSimilarity,
 } from '../../shared/utils/faceIdentityMatcher';
 import { generateFaceEmbeddings } from './faceEmbeddingService';
+
+import jpeg from 'jpeg-js';
+import { PNG } from 'pngjs';
+
+function decodeToRgb(buffer: Buffer): { data: Uint8Array; width: number; height: number } {
+  const isPng = buffer[0] === 0x89 && buffer[1] === 0x50;
+  const img: { data: Uint8Array | Buffer; width: number; height: number } = isPng
+    ? PNG.sync.read(buffer)
+    : jpeg.decode(buffer, { useTArray: true });
+  const rgb = new Uint8Array(img.width * img.height * 3);
+  for (let i = 0, j = 0; i < img.data.length; i += 4, j += 3) {
+    rgb[j] = img.data[i];
+    rgb[j + 1] = img.data[i + 1];
+    rgb[j + 2] = img.data[i + 2];
+  }
+  return { data: rgb, width: img.width, height: img.height };
+}
+
+setWasmPaths(`${process.cwd()}/node_modules/@tensorflow/tfjs-backend-wasm/dist/`);
+export const tfReady: Promise<void> = (async () => {
+  await tf.setBackend('wasm');
+  await tf.ready();
+})();
+tfReady.catch(() => undefined);
 
 const LEGACY_CALIBRATION_THRESHOLDS = [0.55, 0.6, 0.65, 0.7, 0.75, 0.8];
 export const FACE_IDENTITY_CALIBRATION_THRESHOLDS = [...new Set([
@@ -381,7 +406,8 @@ export function auditDuplicateImages(
 }
 
 function getDifferenceHash(imageBytes: Uint8Array): bigint {
-  const decoded = tf.node.decodeImage(imageBytes, 3);
+  const decodedRgb = decodeToRgb(Buffer.from(imageBytes));
+  const decoded = tf.tensor3d(decodedRgb.data, [decodedRgb.height, decodedRgb.width, 3], 'int32');
   const gray = decoded.mean(2);
   const expanded = tf.expandDims(gray, 0) as tf.Tensor3D;
   const resized = tf.image.resizeBilinear(expanded, [8, 9], false);
@@ -748,6 +774,7 @@ export async function calibrateFaceIdentity(
   datasetDirectory: string,
   options: CalibrationOptions = defaultOptions()
 ): Promise<FaceIdentityCalibrationReport> {
+  await tfReady;
   if (!Number.isInteger(options.seed) || options.seed < 0) throw new RangeError('Seed must be a non-negative integer.');
   if (!Number.isInteger(options.maximumIdentities) || options.maximumIdentities < 2) {
     throw new RangeError('Maximum identities must be at least two.');

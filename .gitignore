@@ -34,3 +34,16 @@ research-data/widerface/*.zip
 research-data/results/
 backend/calibration-report.json
 
+
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+build/
+*.log
+*.bak
+*.bak2
+*.bak3
+patch-*.ps1
+.DS_Store

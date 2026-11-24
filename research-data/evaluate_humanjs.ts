@@ -143,7 +143,7 @@ async function main() {
     nodeVersion: process.version,
     packages: {
       human: packageJson.dependencies['@vladmandic/human'],
-      tensorflowNode: packageJson.dependencies['@tensorflow/tfjs-node'],
+      tensorflowWasm: packageJson.dependencies['@tensorflow/tfjs-backend-wasm'],
     },
     modelFileHashes,
     predictionFileSha256: await hashFile(outputPath),
